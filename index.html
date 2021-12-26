@@ -57,7 +57,7 @@
 
         <!-- Key Contributions -->
         <p class="auto-style5">&nbsp;</p>
-        <p class="style2", style="color:blue;"><strong><span class="auto-style6"><u>Key Contributions</u></span></strong></p>
+        <p class="style2", style="color:blue;"><strong><span class="auto-style6"><u>Key contributions</u></span></strong></p>
         <p align="justify" class="auto-style5-j">
         <ol>
           <li>Optimal Smoothing as preprocessing for training samples</li>
@@ -68,9 +68,9 @@
         </p>
 
 
-        <!-- Results -->
+        <!-- Pyhton Packages -->
         <p class="auto-style5">&nbsp;</p>
-        <p class="style2", style="color:blue;"><strong><span class="auto-style6"><u>Results on Speech Quality Metrics</u></span></strong></p>
+        <p class="style2", style="color:blue;"><strong><span class="auto-style6"><u>Python packages used in this study for metrics and baselines</u></span></strong></p>
         <ol>
           <li>Speech Metrics are computed using the following python package (<a href="https://github.com/vkothapally/pysepm" target="_blank">pysepm</a>)</li>
           <li>Baseline-WPE (<a href="https://github.com/fgnt/nara_wpe" target="_blank">nara-wpe</a>)</li>
@@ -78,7 +78,11 @@
           <li>Baseline-FSEGAN (<a href="https://github.com/lifelongeek/AAS_enhancement" target="_blank">fsegan</a>)</li>
           <li>Baseline-MetricGAN (<a href="https://github.com/speechbrain/speechbrain/blob/develop/speechbrain/lobes/models/MetricGAN.py" target="_blank">metricgan</a>)</li>
         </ol>
+        
+        
+        <!-- Results -->
         <p class="auto-style5">&nbsp;</p>
+        <p class="style2", style="color:blue;"><strong><span class="auto-style6"><u>Results on speech quality metrics</u></span></strong></p>
         <p align="justify" class="auto-style5-j">
         <center><img src="specs/reverb.png" width="840" /></center>
         </p>
@@ -86,7 +90,7 @@
 
         <!-- Optimal Smoothing -->
         <p class="auto-style5">&nbsp;</p>
-        <p class="style2", style="color:blue;"><strong><span class="auto-style6"><u>Optimal Smoothing Preprocessing</u></span></strong></p>
+        <p class="style2", style="color:blue;"><strong><span class="auto-style6"><u>Optimal Smoothing as Preprocessing</u></span></strong></p>
         <p align="justify" class="auto-style5-j">
           With the advancements in deep learning approaches, the performance of speech enhancing systems in the presence of background noise have shown significant improvements. However, improving the system's robustness against reverberation is still a work in progress, as reverberation tends to cause loss of formant structure due to smearing effects in time and frequency. A wide range of deep learning approaches systems either enhance the magnitude response and reuse the distorted phase or enhance complex spectrogram using a complex time-frequency mask. Though these approaches have demonstrated satisfactory performance, they do not directly address the lost formant structure caused by reverberation. We believe that retrieving the formant structure can help improve the efficiency of existing systems. In this study, we propose SkipConvGAN - an extension of our prior work SkipConvNet. The proposed system's generator network tries to estimate an efficient complex time-frequency mask, while the discriminator network aids in driving the generator to restore the lost formant structure. We evaluate the performance of our proposed system on simulated and real recordings of reverberant speech from the single-channel task of the  REVERB challenge corpus. The proposed system shows a consistent improvement across multiple room configurations over other deep learning-based generative adversarial frameworks.
         </p>
@@ -134,7 +138,7 @@
 
         <!-- Performance -->
         <p class="auto-style5">&nbsp;</p>
-        <p id="performance" , class="auto-style4", style="color:blue;"><strong><u>Enhanced Audio Samples from various Speech Dereverberation Systems</u></strong></p>
+        <p id="performance" , class="auto-style4", style="color:blue;"><strong><u>Enhanced audio samples from various Speech Dereverberation Systems</u></strong></p>
 
         <p><strong><u>Demo 1: Simulated Room 1 [Dimensions: 40x50x5  &nbsp;&nbsp; ReverbTime: 300 ms]</u></strong></p>
         <table width="1375" border="1">
