@@ -16,11 +16,14 @@
     <title><center> SkipConvGAN: A Monaural Speech Dereverberation using Generative Adversarial Networks via Complex Time-Frequency Masking </center></title>
 </head>
 
+
+
+
 <body>
     <div id="top_arrow" style="position: fixed; bottom: 10px; right: 10px;">
-        <a href="#title">
-<img src="./figures/top_arrow.jpg" style="border: 0pt none ; width: 26px; height: 26px;"/></a>
+        <a href="#title"><img src="./figures/top_arrow.jpg" style="border: 0pt none ; width: 26px; height: 26px;"/></a>
     </div>
+    
     <p  style="margin-bottom:3cm;">"  "</p>
     <h2 id="title" class="auto-style1"><center> SkipConvGAN: A Monaural Speech Dereverberation using Generative Adversarial Networks via Complex Time-Frequency Masking </center></h2>
     <p class="auto-style7" align="center">
@@ -32,23 +35,25 @@
     <p class="auto-style7" align="center">
         <sup>1</sup> Center for Robust Speech Systems (CRSS), The University of Texas at Dallas, Texas, USA
     </p>
+
+
     <!--<p class="auto-style7"  align="center">&nbsp;&nbsp;&nbsp; </p>-->
     <p align=left>&nbsp;</p>
     <p align="center">
+
+        <!-- Image with description -->
         <table style="width:960px" align="center">
-            <tr>
-                <td><img width=960px alt="" src="figures/skipconvgan.png"></td>
-            </tr>
-            <tr>
-                <td>
-                    <p align="justify" class="auto-style5-j">Figure 1. Overview of our proposed SkipConvGAN: A complex-valued generative adversarial network for monaural speech dereverberation. (a) Generator Network: A complex-valued network which takes in a spectrogram of reverberant speech and estimates an enhanced speech spectrogram, (b) Discriminator Network: A complex-valued patch discriminator which classifies enhanced speech spectrogram and ground-truth clean speech spectrogram.</p>
-                </td>
-            </tr>
+            <tr><td><img width=960px alt="" src="figures/skipconvgan.png"></td></tr>
+            <tr><td><p align="justify" class="auto-style5-j">Figure 1. Overview of our proposed SkipConvGAN: A complex-valued generative adversarial network for monaural speech dereverberation. (a) Generator Network: A complex-valued network which takes in a spectrogram of reverberant speech and estimates an enhanced speech spectrogram, (b) Discriminator Network: A complex-valued patch discriminator which classifies enhanced speech spectrogram and ground-truth clean speech spectrogram.</p></td></tr>
         </table>
+
+        <!-- Abstract -->
         <p class="style2"><strong><span class="auto-style6">Abstract</span></strong></p>
         <p align="justify" class="auto-style5-j">
           With the advancements in deep learning approaches, the performance of speech enhancing systems in the presence of background noise have shown significant improvements. However, improving the system's robustness against reverberation is still a work in progress, as reverberation tends to cause loss of formant structure due to smearing effects in time and frequency. A wide range of deep learning approaches systems either enhance the magnitude response and reuse the distorted phase or enhance complex spectrogram using a complex time-frequency mask. Though these approaches have demonstrated satisfactory performance, they do not directly address the lost formant structure caused by reverberation. We believe that retrieving the formant structure can help improve the efficiency of existing systems. In this study, we propose SkipConvGAN - an extension of our prior work SkipConvNet. The proposed system's generator network tries to estimate an efficient complex time-frequency mask, while the discriminator network aids in driving the generator to restore the lost formant structure. We evaluate the performance of our proposed system on simulated and real recordings of reverberant speech from the single-channel task of the  REVERB challenge corpus. The proposed system shows a consistent improvement across multiple room configurations over other deep learning-based generative adversarial frameworks.
         </p>
+
+        <!-- Downloadables -->
         <p class="auto-style5">&nbsp;</p>
         <p id="downloads" , class="auto-style4"><strong>Download</strong></p>
         <table cellSpacing=4 cellPadding=2 border=0 style="width: 90%">
@@ -56,28 +61,25 @@
                 <td align="center" valign="center">
                     <img style="padding:0; clear:both; " src="figures/paper_thumbnail.png" align="middle" alt="Snapshot for paper" class="pdf" width="200" />
                 </td>
-                <td align="left" class="auto-style5">"Pyramid Scene Parsing Network&quot;
-                    <br> Hengshuang Zhao, Jianping Shi, Xiaojuan Qi, Xiaogang Wang, Jiaya Jia.
+                <td align="left" class="auto-style5">"SkipConvGAN: A Monaural Speech Dereverberation &quot;
+                    <br> Vinay Kothapally, John H.L. Hansen.
                     <br>
-                    <em>IEEE Conference on Computer Vision and Pattern Recognition</em> (<b>CVPR</b>), 2017.</br>
-                    Ranked
-                    <text style="color:red">1st place</text> in <a href="http://image-net.org/challenges/LSVRC/2016/results">ImageNet Scene Parsing Challenge 2016</a>.
+                    <em>Submitted to IEEE Transactions </em> (<b>IEEE</b>), 2021.</br>
                     <br>
-                    <br>
-                    <img alt="" height="32" src="figures/pdf.png">&nbsp;&nbsp;[<a href="https://arxiv.org/abs/1612.01105">Paper</a>]&nbsp;&nbsp;[<a href="../../papers/cvpr17_pspnet_bib.txt">Bib</a>]
+                    <img alt="" height="32" src="figures/pdf.jpeg">&nbsp;&nbsp;[<a href="https://arxiv.org/abs/1612.01105">Paper</a>]&nbsp;&nbsp;[<a href="../../papers/cvpr17_pspnet_bib.txt">Bib</a>]
                     <br>
                     <br>
                     <img alt="" height="32" src="figures/github.png">&nbsp;&nbsp;[<a href="https://github.com/hszhao/PSPNet">Caffe</a>][<a href="https://github.com/hszhao/semseg">PyTorch</a>]
                     <br>
                     <br>
                     <!--<img alt="" height="32" src="figures/ppt.gif">&nbsp;&nbsp;[<a href="./papers/pspnet_slides.pdf">Slides</a>]&nbsp;&nbsp;[<a href="./papers/pspnet_poster.pdf">Poster</a>]<br><br>-->
-                    <img alt="" height="32" src="figures/ppt.png">&nbsp;&nbsp;[<a href="http://image-net.org/challenges/talks/2016/SenseCUSceneParsing.pdf">Slides in ILSVRC2016@ECCV2016</a>]
-                    <br>
-                    <br>
+                    <!--<img alt="" height="32" src="figures/ppt.png">&nbsp;&nbsp;[<a href="http://image-net.org/challenges/talks/2016/SenseCUSceneParsing.pdf">Slides in ILSVRC2016@ECCV2016</a>] -->
                 </td>
             </tr>
         </table>
         <br>
+
+        <!-- Performance -->
         <p class="auto-style5">&nbsp;</p>
         <p id="performance" , class="auto-style4"><strong>Performance</strong></p>
         <table style="width:960px" align="center">
