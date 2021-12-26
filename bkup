@@ -1,0 +1,638 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="">
+  <meta name="keywords" content="UniTrack, object tracking">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Do Different Tracking Tasks Require Different Appearance Models?</title>
+
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Do Different Tracking Tasks Require Different Appearance Models?</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://zhongdao.github.io">Zhongdao Wang</a><sup>1</sup>,
+
+              <a href="https://hszhao.github.io">Hengshuang Zhao</a><sup>2</sup>,
+
+              <a href="https://scholar.google.com/citations?user=aYLh7fsAAAAJ&hl=en&oi=ao">Ya-Li Li</a><sup>1</sup>,
+
+              <a href="https://scholar.google.com/citations?user=RgzLZZsAAAAJ&hl=en&oi=ao">Shengjin Wang</a><sup>1</sup>,
+ 
+              <a href="https://www.robots.ox.ac.uk/~phst/">Philip H.S. Torr</a><sup>2</sup>,
+
+              <a href="https://www.robots.ox.ac.uk/~luca">Luca Bertinetto</a><sup>3</sup>
+            <br /><sup>1</sup>Tsinghua University&emsp;<sup>2</sup>University of Oxford&emsp;<sup>3</sup>FIVE AI
+            <p>
+            <div class="brmod"></div>NeurIPS 2021</span>
+          </div>
+
+
+
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2107.02156"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Video Link. -->
+              <!--
+              <span class="link-block">
+                <a href="https://www.youtube.com/"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/Zhongdao/UniTrack"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+                  </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="static/images/radar.png"
+                 class="interpolation-image"
+                 alt="Interpolate start reference image."/>
+      </img>
+      <br>
+
+      <h2 class="subtitle has-text-centered">
+        <span class="dnerf"> We experiment with a large amount of self-supervised representations on five different tracking tasks and present a comprehensive comparison. A polygon with a larger area means better performance across the board. Dashed gray line indicates ImageNet pre-trained representation.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<!-- <section class="hero is-light is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-steve">
+          <video poster="" id="steve" autoplay controls muted loop height="100%">
+            <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/steve.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-chair-tp">
+          <video poster="" id="chair-tp" autoplay controls muted loop height="100%">
+            <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/chair-tp.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-shiba">
+          <video poster="" id="shiba" autoplay controls muted loop height="100%">
+            <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/shiba.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-fullbody">
+          <video poster="" id="fullbody" autoplay controls muted loop height="100%">
+            <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/fullbody.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-blueshirt">
+          <video poster="" id="blueshirt" autoplay controls muted loop height="100%">
+            <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/blueshirt.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-mask">
+          <video poster="" id="mask" autoplay controls muted loop height="100%">
+            <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/mask.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-coffee">
+          <video poster="" id="coffee" autoplay controls muted loop height="100%">
+            <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/coffee.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-toby">
+          <video poster="" id="toby" autoplay controls muted loop height="100%">
+            <source src="https://homes.cs.washington.edu/~kpar/nerfies/videos/toby2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+          Tracking objects of interest in a video is one of the most popular and widely applicable problems
+          in computer vision. However, with the years, a Cambrian explosion of use cases and benchmarks
+          has fragmented the problem in a multitude of different experimental setups. As a consequence, the
+          literature has fragmented too, and now the novel approaches proposed by the community are usually
+          specialised to fit only one specific setup. 
+          </p>
+
+          <p>
+          To understand to what extent this specialisation is actually
+          necessary, in this work we present <b>UniTrack</b>, a solution to address five different tasks within the same
+          framework. UniTrack consists of a single and task-agnostic appearance model, which can be learned
+          in a supervised or self-supervised fashion, and multiple “heads” to address individual tasks and that do
+          not require training. We show how most tracking tasks can be solved within this framework, and that
+          the same appearance model can be used to obtain performance that is competitive against specialised
+          methods for all the five tasks considered. The framework also allows us to analyse appearance models
+          obtained with the most recent self-supervised methods, thus significantly extending their evaluation
+          and comparison to a larger variety of important problems. 
+        </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <!--
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src=""
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+    -->
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+<section class="section">
+
+
+  <div class="container is-max-desktop">
+
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Proliferation of tracking setups</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            Various use cases and benchmarks has fragmented the tracking problem in multiple setups.
+          </p>
+        </div>
+        <div class="columns is-vcentered interpolation-panel">
+
+          <img src="static/images/tasks.png"
+                 class="interpolation-image"
+                 alt="Interpolate start reference image."/>
+          </img>
+
+        </div>
+        <br/>
+
+
+
+      </div>
+    </div>
+
+
+
+    <div class="columns is-centered">
+
+
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">The UniTrack framework</h2>
+          <p>
+            To investigate what consititutes a good representation of objects in videos,  we propose UniTrack, a unified tracking framework with a single shared appearance model. 
+            UniTrack is divided into three "levels":
+          </p>
+            <ul>
+              <li> <b>Level-1</b>: The shared, base appearance model. We are particularly interested in <i>self-supervised</i> representations like MoCo and SimCLR.</li> 
+              <li> <b>Level-2</b>: Two parameter-free algorithmic primitives: <i>propagation</i> and <i>assciation</i>, that operate on deep features extracted by the appearance model.</li> 
+              <li> <b>Level-3</b>: Task-specific solutions. Used to adapt the two level-2 primitives to task-specific outputs.
+ </li> 
+            </ul>
+        </div>
+      </div>
+
+
+      <div class="column">
+        <h2 class="title is-3"></h2>
+        <div class="columns is-centered">
+          <div class="column content">
+             <img src="static/images/framework.png"
+                 class="interpolation-image"
+                 alt="Interpolate start reference image."/>
+          </img>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+</section>
+
+  
+
+
+  
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3">Results visulization</h2>
+        Below we show qualitative results of UniTrack on five different tracking tasks. The appearance model used is an <b> ImageNet pre-trained ResNet-18</b>. <b>No</b> task-specific training is performed.  Note that we use this appearance model only for simplicity and consistency of comaprison. Many self-supervised representations are better on all task. 
+        <div class="brmod"></div>
+      <div class="hero is-light is-small">
+
+        <div class="hero-body">
+          <div class="container">
+            <a class="title is-5"> Single Object Tracking (SOT) @ OTB-2015</a>
+            <div id="results-carousel" class="carousel results-carousel">
+              <div class="item item-steve">
+                  <img src="static/images/vis/sot1.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/sot2.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/sot3.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/sot4.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/sot5.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/sot6.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/sot7.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/sot8.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+            </div>
+          </div>
+      </div>
+
+        <div class="hero-body">
+          <div class="container">
+            <a class="title is-5"> Video Object Segmentation (VOS) @ DAVIS-2017</a>
+            <div id="results-carousel" class="carousel results-carousel">
+              <div class="item item-steve">
+                  <img src="static/images/vis/vos1.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/vos2.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/vos3.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/vos4.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/vos5.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/vos6.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/vos7.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/vos8.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <div class="hero-body">
+          <div class="container">
+            <a class="title is-5"> Multi-Object Tracking (MOT) @ MOT-16</a>
+            <div id="results-carousel" class="carousel results-carousel">
+              <div class="item item-steve">
+                  <img src="static/images/vis/mot1.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/mot2.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/mot3.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/mot4.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/mot5.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/mot6.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+            </div>
+          </div>
+      </div>
+
+      <div class="hero-body">
+          <div class="container">
+            <a class="title is-5"> Multi-Object Tracking and Segmentation (MOTS) @ MOTS</a>
+            <div id="results-carousel" class="carousel results-carousel">
+              <div class="item item-steve">
+                  <img src="static/images/vis/mots1.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/mots2.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/mots3.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/mots4.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+            </div>
+          </div>
+      </div>
+
+
+        <div class="hero-body">
+          <div class="container">
+            <a class="title is-5"> Pose Tracking @ PoseTrack-2018 </a>
+            <div id="results-carousel" class="carousel results-carousel">
+              <div class="item item-steve">
+                  <img src="static/images/vis/posetrack1.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/posetrack2.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/posetrack3.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/posetrack4.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/posetrack5.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+              <div class="item item-steve">
+                  <img src="static/images/vis/posetrack6.gif"
+                       class="interpolation-image"
+                       alt="Interpolate start reference image."/>
+              </div>
+            </div>
+          </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+
+
+
+<section class="section">
+
+
+  <div class="container is-max-desktop">
+
+
+  
+
+
+    <div class="columns is-centered">
+
+
+      <div class="column is-two-thirds">
+        <div class="content">
+          <h2 class="title is-3">An evaluation platform for SSL models</h2>
+          <p>
+            The "decoupled" characterazition of appearance models in UniTrack allows us to use this framework as an evaluation platform for benchmarking self-supervised learning (SSL) models on multiple tracking tasks. And the evaluation does not requrire any training or finetuning!
+          </p>
+
+          <p>
+            In the right we show an example: the SSL model <a href="https://github.com/facebookresearch/moco">MoCo-v1</a> is tested on five tracking tasks.  Each vertex shows the ranking against the other models for a specific tracking task. The larger the area of a polygon is, the better that learned representation performs, across the board.
+          </p>
+
+          <p>
+            Resuls are shown at the <a href="#">top of the page</a>: the recent proposed <a href="https://jerryxu.net/VFS/">VFS</a> (bottom-right of the panel) dominates on all tasks except for SOT. We expect that newly-proposed representations will further improve performance across tasks.
+
+          </p>
+        </div>
+      </div>
+
+
+      <div class="column">
+        <h2 class="title is-3"></h2>
+        <div class="columns is-centered">
+          <div class="column content">
+             <img src="static/images/radar_example.png"
+                 class="interpolation-image"
+                 alt="Interpolate start reference image."/>
+          </img>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <h2 class="title is-3">Open-world applications</h2>
+    <div class="columns is-centered">
+      
+        <div class='column is-centered'>
+        <div class="content">
+          <p>
+          In UniTrack, the appearance models are general-purpose representations. This means we can perform class-agnostic tracking in an open-world context. Below we show a demo by combining <a href="https://github.com/Megvii-BaseDetection/YOLOX"> YOLOX </a> with UniTrack. YOLOX is trained on the COCO dataset, so in this demo we can perform Multi-Object Tracking for 80 COCO classes. 
+          </p>
+          <p>
+          The YOLOX detector can be replaced with other detectors if you want to track objects of other classes. 
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column">
+        <div class="publication-video">
+          <iframe src="static/images/unitrack_demo.mp4"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{wang2021different,
+  author    = {Wang, Zhongdao and Zhao, Hengshuang and Li, Ya-Li and Wang, Shengjin and Torr, Philip and Bertinetto, Luca},
+  title     = {Do different tracking tasks require different appearance models?},
+  journal   = {Thirty-Fifth Conference on Neural Infromation Processing Systems},
+  year      = {2021},
+}</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/pdf/2107.02156.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/Zhongdao/UniTrack" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content has-text-centered">
+          <p>
+             Website template borrowed from <a
+              href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
